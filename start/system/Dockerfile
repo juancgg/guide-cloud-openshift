@@ -8,4 +8,6 @@ COPY --from=clone /app/guide-cloud-openshift/start /app
 RUN mvn package
 
 FROM open-liberty
-ADD --chown=1001:0 target/system.tar.gz /opt/ol
+COPY --from=build /app/system/target/system.tar.gz .
+RUN mv system.tar.gz /opt/ol && gunzip /opt/ol/system.tar.gz && tar xf /opt/ol/system.tar.gz && rm -f /opt/ol/system.tar.gz
+RUN chown -R 1001:0 /opt/ol/system*
