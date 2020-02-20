@@ -4,8 +4,8 @@ RUN git clone --single-branch --branch multi-stage_build https://github.com/seco
 
 FROM maven:alpine AS build
 WORKDIR /app
-COPY --from=clone /app/guide-cloud-openshift/start/pom.xml /app/
-COPY --from=clone /app/guide-cloud-openshift/start/inventory /app
+COPY --from=clone /app/guide-cloud-openshift/start /app
+WORKDIR /app/system
 RUN mvn package
 
 FROM open-liberty
