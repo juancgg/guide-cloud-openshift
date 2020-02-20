@@ -5,7 +5,7 @@ RUN git clone --single-branch --branch multi-stage_build https://github.com/seco
 FROM maven:alpine AS build
 WORKDIR /app
 COPY --from=clone /app/guide-cloud-openshift/start/inventory /app 
-RUN mvn package && mv target/inventory*.tar.gz target/inventory.tar.gz
+RUN mvn package
 
 FROM open-liberty
 ADD --chown=1001:0 target/inventory.tar.gz /opt/ol
