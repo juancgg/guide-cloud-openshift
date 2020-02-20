@@ -9,5 +9,6 @@ RUN mvn package
 
 FROM open-liberty
 COPY --from=build /app/system/target/system.tar.gz /opt/ol
+USER root
 RUN gunzip /opt/ol/system.tar.gz && tar -C /opt/ol -xf /opt/ol/system.tar && rm -f /opt/ol/system.tar
 RUN chown -R 1001:0 /opt/ol/*
